@@ -2,7 +2,11 @@ import { io } from "socket.io-client";
 import { getToken } from "./api";
 import { neonEnabled, refreshNeonToken } from "./neonAuth";
 
-const URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:5050";
+const URL =
+  import.meta.env.VITE_SOCKET_URL ||
+  (import.meta.env.DEV
+    ? "http://localhost:5050"
+    : "https://kagoj-backend-oju1.onrender.com");
 
 let socket = null;
 
