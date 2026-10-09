@@ -1,8 +1,8 @@
 import { query } from '../config/db.js';
-import ApiError from '../utils/ApiError.js';
-import asyncHandler from '../utils/AsyncHandler.js';
-import ai from '../services/aiService.js';
-import { emitBoard } from '../realtime.js';
+import ApiError from '../utils/apiError.js';
+import asyncHandler from '../utils/asyncHandler.js';
+import * as ai from '../services/aiService.js';
+import { emitToBoard } from '../realtime/index.js';
 
 const STICKY_COLORS = ['#ffde6a', '#bbf7d0', '#fbcfde', '#bfc6fd', '#ddd6fe', '#fed7aa'];
 const STICKY = 190;
@@ -21,7 +21,7 @@ const persistElements = async (boardId, userId, socketId, specs) => {
     created.push(rows[0]);
   }
   await query("UPDATE whiteboards SET updated_at = now() WHERE id = $1", [boardId]);
-  for (const element of created) emitBoard(boardId, 'element:create', element, socketId);
+  for (const element of created) emitToBoard(boardId, 'element:created', element, socketId);
   return created;
 };
 

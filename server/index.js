@@ -5,6 +5,7 @@ import { errorHandler, notFoundHandler } from "./src/middleware/errorHandler.js"
 import apiRoutes from './src/routes/index.js'
 import { initSocket } from "./src/socket/index.js";
 import http from "node:http";
+import { serveFile } from "./src/controllers/uploadController.js";
 import { UPLOAD_DIR } from "./src/config/uploads.js";
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(
 );
 app.use(express.json({ limit: "5mb" }));
 app.use('/uploads',express.static(UPLOAD_DIR,{maxAge:'30d', immutable: true}))
+app.get("/files/whiteboards/:filename", serveFile);
 app.get("/", (_req, res) =>
   res.json({ name: "AI Whiteboard Notes API", status: "running" })
 );

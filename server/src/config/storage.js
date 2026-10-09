@@ -1,4 +1,4 @@
-import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
+import { S3Client, PutObjectCommand, DeleteObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
 
 const cfg = {
   endpoint: process.env.NEON_STORAGE_ENDPOINT,
@@ -29,6 +29,8 @@ export const putObject = async (key, buffer, contentType) => {
   return `${cfg.endpoint.replace(/\/$/, "")}/${cfg.bucket}/${key}`;
 };
 
+export const getObject = (key) => client.send(new GetObjectCommand({ Bucket: cfg.bucket, Key: key }));
+
 export const deleteObject = async (key) => {
   await client.send(new DeleteObjectCommand({ Bucket: cfg.bucket, Key: key }));
 };
@@ -44,6 +46,7 @@ export const bucket = cfg.bucket;
 export default {
   isEnabled,
   putObject,
+  getObject,
   deleteObject,
   keyFromUrl,
   bucket,

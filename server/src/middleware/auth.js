@@ -1,6 +1,6 @@
-import ApiError from "../utils/ApiError.js";
+import ApiError from "../utils/apiError.js";
 import asyncHandler from "../utils/asyncHandler.js";
-import { resolveUserFromToken } from "../utils/ResolveUser.js";
+import { resolveUserFromToken } from "../utils/resolveUser.js";
 
 export const requireAuth = asyncHandler(async (req, res, next) => {
   // Guard: Determine the actual request object

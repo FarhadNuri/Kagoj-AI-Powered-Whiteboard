@@ -6,6 +6,12 @@ import storage from "../config/storage.js";
 export const deleteUploadByUrl = (src) => {
   if (typeof src !== "string") return;
 
+  const proxied = src.match(/\/files\/whiteboards\/([^/?]+)/);
+  if (storage.isEnabled() && proxied) {
+    storage.deleteObject(`whiteboards/${proxied[1]}`).catch(() => {});
+    return;
+  }
+
   if (storage.isEnabled() && src.includes(`/${storage.bucket}/`)) {
     const key = storage.keyFromUrl(src);
     if (key) storage.deleteObject(key).catch(() => {});
