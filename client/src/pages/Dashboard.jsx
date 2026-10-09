@@ -8,11 +8,22 @@ import Modal from "../components/ui/Modal";
 import { Spinner } from "../components/ui/Spinner";
 import UserMenu from "../components/UserMenu";
 import BoardThumbnail from "../components/BoardThumbnail";
+import Scribble from "../components/Scribble";
 import { boardApi } from "../lib/api";
 import { relativeTime } from "../lib/utils";
 
 const TINTS = ["#ebf6ef", "#eef4ff", "#fdf2f8", "#fefce8", "#f5f3ff", "#fff7ed"];
 const EMPTY_FORM = { title: "", description: "", background: "dots" };
+
+const notebookPaper = {
+  backgroundColor: "#fdfbf5",
+  backgroundImage: "repeating-linear-gradient(180deg, transparent 0 35px, #e3ebf5 35px 36px)",
+};
+
+const thumbnailPaper = (tint) => ({
+  backgroundColor: tint,
+  backgroundImage: "repeating-linear-gradient(180deg, transparent 0 15px, rgba(120,140,170,0.18) 15px 16px)",
+});
 
 function Brand() {
   return (
@@ -31,10 +42,7 @@ function BoardCard({ board, index, onDelete }) {
       to={`/board/${board.id}`}
       className="card group overflow-hidden rounded-2xl transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]"
     >
-      <div
-        className="h-32"
-        style={{ background: `linear-gradient(180deg, ${TINTS[index % TINTS.length]}, #fff)` }}
-      >
+      <div className="h-32" style={thumbnailPaper(TINTS[index % TINTS.length])}>
         <BoardThumbnail boardId={board.id} updatedAt={board.updated_at} />
       </div>
       <div className="p-4">
@@ -118,7 +126,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" style={notebookPaper}>
       <header className="glass sticky top-0 z-20 border-b border-line">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3.5 sm:px-6">
           <Brand />
@@ -129,7 +137,10 @@ export default function Dashboard() {
       <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h1 className="font-display text-3xl font-bold">Your whiteboards</h1>
+            <h1 className="relative inline-block font-display text-3xl font-bold">
+              Your whiteboards
+              <Scribble className="absolute -bottom-2 left-0 w-full" />
+            </h1>
             {boards && (
               <p className="mt-1 text-sm text-muted">
                 {boards.length} {boards.length === 1 ? "board" : "boards"}

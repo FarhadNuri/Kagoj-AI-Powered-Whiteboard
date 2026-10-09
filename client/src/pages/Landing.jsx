@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Download, MousePointer2, PenLine, Shapes, Sparkles, Users } from "lucide-react";
 import Button from "../components/ui/Button";
+import Scribble from "../components/Scribble";
 import { useAuth } from "../context/AuthContext";
 
 const FEATURES = [
@@ -26,13 +27,19 @@ const FEATURES = [
   },
 ];
 
+const notebookPaper = {
+  backgroundColor: "#fdfbf5",
+  backgroundImage:
+    "repeating-linear-gradient(180deg, transparent 0 35px, #e3ebf5 35px 36px)",
+};
+
 const floating = "shadow-[var(--shadow-soft)]";
 
 export default function Landing() {
   const { user } = useAuth();
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" style={notebookPaper}>
       <header className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 sm:py-5">
         <Link to="/" className="flex items-center gap-2.5">
           <span className="brand-gradient grid h-9 w-9 place-items-center rounded-xl text-white">
@@ -58,40 +65,57 @@ export default function Landing() {
         </nav>
       </header>
 
-      <section className="animate-in mx-auto max-w-4xl px-5 pb-10 pt-10 text-center sm:px-6 sm:pt-16">
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3.5 py-1.5 text-xs font-medium text-muted shadow-[var(--shadow-card)]">
-          <Sparkles className="h-3.5 w-3.5 text-brand-500" />
-          AI-powered whiteboard notes
-        </span>
-        <h1 className="mt-6 font-display text-4xl font-bold leading-[1.05] sm:text-5xl md:text-6xl">
-          The infinite canvas for <br />
-          <span className="text-gradient">notes that think with you.</span>
-        </h1>
-        <p className="mx-auto mt-6 max-w-xl text-lg text-muted">
-          Sketch, diagram and brainstorm freely. Drop text, shapes and sticky notes, draw by
-          hand, and let AI expand your ideas — all in real time.
-        </p>
-        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <Link to={user ? "/dashboard" : "/register"}>
-            <Button size="lg">
-              <MousePointer2 className="h-4 w-4" />
-              Start whiteboarding
-            </Button>
-          </Link>
-          <Link to="/login">
-            <Button size="lg" variant="secondary">Sign in</Button>
-          </Link>
+      <section className="animate-in relative mx-auto max-w-6xl px-5 pb-12 pt-10 text-center sm:px-6 sm:pt-16">
+        <div
+          className={`${floating} absolute left-2 top-16 hidden w-44 -rotate-6 bg-[#fde68a] p-4 text-left text-sm font-medium md:block`}
+          aria-hidden="true"
+        >
+          Brainstorm: 3 launch ideas
+        </div>
+        <div
+          className={`${floating} absolute right-2 top-40 hidden w-40 rotate-3 bg-[#bfdbfe] p-4 text-left text-sm font-medium md:block`}
+          aria-hidden="true"
+        >
+          Ship the MVP 🚀
+        </div>
+
+        <div className="relative mx-auto max-w-4xl">
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-line bg-surface px-3.5 py-1.5 text-xs font-medium text-muted shadow-[var(--shadow-card)]">
+            <Sparkles className="h-3.5 w-3.5 text-brand-500" />
+            AI-powered whiteboard notes
+          </span>
+          <h1 className="mt-6 font-display text-4xl font-bold leading-[1.05] sm:text-5xl md:text-6xl">
+            The infinite canvas for <br />
+            <span className="relative inline-block text-gradient">
+              notes that think with you.
+              <Scribble className="absolute -bottom-3 left-0 w-full" />
+            </span>
+          </h1>
+          <p className="mx-auto mt-8 max-w-xl text-lg text-muted">
+            Sketch, diagram and brainstorm freely. Drop text, shapes and sticky notes, draw by
+            hand, and let AI expand your ideas, all in real time.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <Link to={user ? "/dashboard" : "/register"}>
+              <Button size="lg">
+                <MousePointer2 className="h-4 w-4" />
+                Start whiteboarding
+              </Button>
+            </Link>
+            <Link to="/login">
+              <Button size="lg" variant="secondary">Sign in</Button>
+            </Link>
+          </div>
         </div>
       </section>
 
       <section className="mx-auto max-w-6xl px-4 pb-16 sm:px-6 sm:pb-20">
         <div
-          className="card canvas-bg-dots flex flex-wrap items-center justify-center gap-6 rounded-3xl p-5 shadow-[var(--shadow-lift)] sm:gap-8 sm:p-8"
-          style={{ backgroundSize: "22px 22px", backgroundColor: "#fff" }}
+          className="card flex flex-wrap items-center justify-center gap-6 rounded-3xl p-5 shadow-[var(--shadow-lift)] sm:gap-8 sm:p-8"
+          style={notebookPaper}
         >
           <div
-            className={`${floating} -rotate-3 rounded-lg px-6 py-8 text-sm font-medium`}
-            style={{ background: "#fde68a" }}
+            className={`${floating} -rotate-3 rounded-lg bg-[#fde68a] px-6 py-8 text-sm font-medium`}
           >
             💡 Brainstorm ideas
           </div>
@@ -110,8 +134,7 @@ export default function Landing() {
             />
           </svg>
           <div
-            className={`${floating} rotate-2 rounded-full px-6 py-3 text-sm font-medium`}
-            style={{ background: "#bfdbfe" }}
+            className={`${floating} rotate-2 rounded-full bg-[#bfdbfe] px-6 py-3 text-sm font-medium`}
           >
             Ship 🚀
           </div>
@@ -121,7 +144,10 @@ export default function Landing() {
       <section className="mx-auto max-w-6xl px-4 pb-20 sm:px-6 sm:pb-24">
         <div className="grid gap-4 sm:grid-cols-2">
           {FEATURES.map(({ icon: Icon, title, text }) => (
-            <div key={title} className="card rounded-2xl p-6">
+            <div
+              key={title}
+              className="card rounded-2xl p-6 transition duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-soft)]"
+            >
               <div className="grid h-11 w-11 place-items-center rounded-xl bg-brand-50 text-brand-600">
                 <Icon className="h-5 w-5" />
               </div>
@@ -132,7 +158,7 @@ export default function Landing() {
         </div>
       </section>
 
-      <footer className="border-t border-line py-8">
+      <footer className="border-t border-line bg-surface/60 py-8">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
           <p className="text-sm text-muted">Built by Farhad Nuri</p>
           <p className="text-center text-sm text-muted">
