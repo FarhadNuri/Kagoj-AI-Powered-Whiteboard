@@ -10,7 +10,11 @@ export const setToken = (token) => localStorage.setItem(TOKEN_KEY, token);
 export const clearToken = () => localStorage.removeItem(TOKEN_KEY);
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "http://localhost:5050/api",
+  baseURL:
+    import.meta.env.VITE_API_URL ||
+    (import.meta.env.DEV
+      ? "http://localhost:5050/api"
+      : "https://kagoj-backend-oju1.onrender.com/api"),
 });
 
 api.interceptors.request.use(async (config) => {
