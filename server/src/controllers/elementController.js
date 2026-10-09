@@ -1,5 +1,5 @@
 import { query } from "../config/db.js";
-import ApiError from "../utils/ApiError.js";
+import ApiError from "../utils/apiError.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import { emitToBoard } from "../realtime/index.js";
 import { deleteUploadByUrl } from "../utils/fileCleanup.js";

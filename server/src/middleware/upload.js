@@ -1,5 +1,5 @@
 import multer from "multer";
-import ApiError from "../utils/ApiError.js";
+import ApiError from "../utils/apiError.js";
 
 const fileFilter = (_req, file, cb) => {
   if (file.mimetype.startsWith("image/")) cb(null, true);

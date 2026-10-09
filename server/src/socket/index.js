@@ -1,5 +1,5 @@
 import { Server } from "socket.io";
-import { resolveUserFromToken } from "../utils/ResolveUser.js";
+import { resolveUserFromToken } from "../utils/resolveUser.js";
 import { query } from "../config/db.js";
 import { setIo, boardRoom } from "../realtime/index.js";
 
