@@ -1,5 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
-import ApiError from "../utils/ApiError";
+import ApiError from "../utils/apiError.js";
 
 const MODEL = process.env.GEMINI_MODEL || "gemini-2.0-flash";
 

@@ -1,6 +1,6 @@
 import { query } from "../config/db.js";
 import * as neonAuth from "../config/neonAuth.js";
-import ApiError from "./ApiError.js";
+import ApiError from "./apiError.js";
 
 export const resolveUserFromToken = async (token) => {
   const parts = String(token).split(".");
