@@ -2,7 +2,7 @@
 
 A real-time collaborative whiteboard with AI-assisted brainstorming. Users create boards, invite teammates, and sketch ideas together with live cursors and instant updates. Gemini can generate sticky notes, outlines, flow diagrams, charts, and summaries directly on the board.
 
-
+![Kagoj whiteboard with sketches, sticky notes, and shapes](client/public/SS.png)
 
 ## Features
 
@@ -155,8 +155,10 @@ server/
 
 ## Author
 
-**Farhad Nuri**: [GitHub](https://github.com/FarhadNuri) · [LinkedIn](https://linkedin.com/in/your-profile)
+**Farhad Nuri**
 
-## License
+[GitHub](https://github.com/FarhadNuri) 
 
-ISC
+[LinkedIn](https://www.linkedin.com/in/farhadnuri/)
+
+
